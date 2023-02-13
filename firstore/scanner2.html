@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <video id="video" width="100%" height="auto" autoplay></video>
+    <script async>
+        const video = document.querySelector('#video')
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        const constraints = { 
+            video: {
+                facingMode: 'environment'
+            },
+            audio: false
+        }
+        navigator.mediaDevices.getUserMedia(constraints).then(stream => video.srcObject = stream);
+        }
+
+        const barcodeDetector = new BarcodeDetector({ formats: ['qr_code'] });
+        
+        const detectCode = () => {
+        barcodeDetector.detect(video).then(codes => {
+            if (codes.length === 0) return;
+        
+            for (const barcode of codes)  {
+            console.log(barcode);
+            var qr = barcode.rawValue;
+            window.location.replace("http://192.168.15.32:8080/api?screen=2&nf=" + qr);
+            }
+        }).catch(err => {
+            console.error(err);
+        })
+        }
+
+        setInterval(detectCode, 100);
+    </script>
+    <style>
+        body {
+            background-color: #000000;
+        }
+        video {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 100vh;
+        }
+    </style>
+  </body>
+</html>
