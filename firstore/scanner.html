@@ -8,7 +8,9 @@
         const constraints = { 
             video: true,
             audio: false,
-            facingMode: 'environment'
+            facingMode: {
+                exact: 'environment'
+            }
         }
         navigator.mediaDevices.getUserMedia(constraints).then(stream => video.srcObject = stream);
         }
