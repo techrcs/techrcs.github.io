@@ -8,6 +8,7 @@
   <body>
     <video id="video" width="100%" height="auto" autoplay></video>
     <script async>
+        var shouldSend = true;
         const video = document.querySelector('#video')
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         const constraints = { 
@@ -28,7 +29,11 @@
             for (const barcode of codes)  {
             console.log(barcode);
             var qr = barcode.rawValue;
-            window.location.replace("http://192.168.15.32:8080/webapi?screen=2&nf=" + qr);
+            if (shouldSend){
+                shouldSend = false;
+                window.location.replace("http://192.168.15.32:8080/webapi?screen=2&nf=" + qr);
+            }
+            
             }
         }).catch(err => {
             console.error(err);
