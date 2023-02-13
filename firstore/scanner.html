@@ -7,7 +7,8 @@
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         const constraints = { 
             video: true,
-            audio: false
+            audio: false,
+            facingMode: 'environment'
         }
         navigator.mediaDevices.getUserMedia(constraints).then(stream => video.srcObject = stream);
         }
