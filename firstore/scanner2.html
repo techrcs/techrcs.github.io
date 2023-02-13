@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
   <body>
-    <video id="video" width="100%" height="auto" autoplay></video>
+    <video id="video" autoplay></video>
     <script async>
         var shouldSend = true;
         const video = document.querySelector('#video')
@@ -31,6 +31,7 @@
             var qr = barcode.rawValue;
             if (shouldSend){
                 shouldSend = false;
+                video.srcObject = null;
                 window.location.replace("http://192.168.0.100:8080/webapi?screen=2&nf=" + qr);
             }
             
@@ -47,11 +48,13 @@
             background-color: #000000;
         }
         video {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            min-height: 100vh;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            max-width: 100%;
+            max-height: 100%;
         }
     </style>
   </body>
