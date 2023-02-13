@@ -23,7 +23,7 @@
             for (const barcode of codes)  {
             console.log(barcode);
             var qr = barcode.rawValue;
-            window.location.replace("http://192.168.15.32:8080/api?screen=1&nf=" + qr);
+            window.location.replace("http://192.168.15.32:8080/webapi?screen=1&nf=" + qr);
             }
         }).catch(err => {
             console.error(err);
